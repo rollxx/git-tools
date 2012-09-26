@@ -2,7 +2,7 @@
 
 currentBranch=`git branch | grep "\*" | sed "s/* //"`
 echo "Looking for branches not being merged to $currentBranch, yet"
-branches=`git branch -r | grep -v "\*" | grep -v "\->"`
+branches=`git branch -r | grep -v "\*" | grep -v "\->" | grep -w "backend/feature\|backend/bugfix"`
 merged=""
 for branch in $branches; do
     unmerged=`git cherry -v "$currentBranch" "$branch"|wc -l`
@@ -15,7 +15,7 @@ for branch in $branches; do
     fi
 done
 
-echo "Alles gemergt:"
+echo "Merged branches:"
 for branch in $merged; do
     echo $branch
 done
